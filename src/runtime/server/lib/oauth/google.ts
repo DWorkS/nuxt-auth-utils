@@ -11,6 +11,7 @@ import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../utils/session'
 
 export interface OAuthGoogleConfig {
   /**
@@ -82,7 +83,7 @@ export function googleEventHandler({
       return onError(event, error)
     }
 
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
     if (!code) {
       config.scope = config.scope || ['email', 'profile']
       // Redirect to Google Oauth page

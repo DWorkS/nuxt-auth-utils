@@ -5,6 +5,7 @@ import { withQuery } from 'ufo'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthGitHubConfig {
   /**
@@ -84,7 +85,7 @@ export function githubEventHandler({ config, onSuccess, onError }: OAuthConfig<O
         config.scope.push('user:email')
       }
       // Redirect to GitHub Oauth page
-      const redirectUrl = getRequestURL(event).href
+      const redirectUrl = getProtocolRequestURL(event).href
       return sendRedirect(
         event,
         withQuery(config.authorizationURL as string, {

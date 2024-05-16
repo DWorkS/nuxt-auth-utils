@@ -5,6 +5,7 @@ import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthAuth0Config {
   /**
@@ -78,7 +79,7 @@ export function auth0EventHandler({ config, onSuccess, onError }: OAuthConfig<OA
     const authorizationURL = `https://${config.domain}/authorize`
     const tokenURL = `https://${config.domain}/oauth/token`
 
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
     if (!code) {
       config.scope = config.scope || ['openid', 'offline_access']
       if (config.emailRequired && !config.scope.includes('email')) {

@@ -6,6 +6,7 @@ import { withQuery, parsePath } from 'ufo'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthBattledotnetConfig {
   /**
@@ -79,6 +80,7 @@ export function battledotnetEventHandler({ config, onSuccess, onError }: OAuthCo
       return onError(event, error)
     }
 
+    const redirectUrl = getProtocolRequestURL(event).href
     if (!code) {
       config.scope = config.scope || ['openid']
       config.region = config.region || 'EU'
@@ -89,7 +91,6 @@ export function battledotnetEventHandler({ config, onSuccess, onError }: OAuthCo
       }
 
       // Redirect to Battle.net Oauth page
-      const redirectUrl = getRequestURL(event).href
       return sendRedirect(
         event,
         withQuery(config.authorizationURL as string, {
@@ -103,7 +104,6 @@ export function battledotnetEventHandler({ config, onSuccess, onError }: OAuthCo
       )
     }
 
-    const redirectUrl = getRequestURL(event).href
     config.scope = config.scope || []
     if (!config.scope.includes('openid')) {
       config.scope.push('openid')

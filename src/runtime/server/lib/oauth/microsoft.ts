@@ -4,6 +4,7 @@ import { withQuery, parsePath } from 'ufo'
 import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthMicrosoftConfig {
   /**
@@ -84,7 +85,7 @@ export function microsoftEventHandler({ config, onSuccess, onError }: OAuthConfi
     const authorizationURL = config.authorizationURL || `https://login.microsoftonline.com/${config.tenant}/oauth2/v2.0/authorize`
     const tokenURL = config.tokenURL || `https://login.microsoftonline.com/${config.tenant}/oauth2/v2.0/token`
 
-    const redirectUrl = config.redirectUrl || getRequestURL(event).href
+    const redirectUrl = config.redirectUrl || getProtocolRequestURL(event).href
     if (!code) {
       const scope = config.scope && config.scope.length > 0 ? config.scope : ['User.Read']
       // Redirect to Microsoft Oauth page

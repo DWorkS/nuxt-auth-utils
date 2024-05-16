@@ -5,6 +5,7 @@ import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthTwitchConfig {
   /**
@@ -71,7 +72,7 @@ export function twitchEventHandler({ config, onSuccess, onError }: OAuthConfig<O
       return onError(event, error)
     }
 
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
     if (!code) {
       config.scope = config.scope || []
       if (config.emailRequired && !config.scope.includes('user:read:email')) {

@@ -11,6 +11,7 @@ import { withQuery, parsePath } from 'ufo'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthKeycloakConfig {
   /**
@@ -89,7 +90,7 @@ export function keycloakEventHandler({
 
     const authorizationURL = `${realmURL}/protocol/openid-connect/auth`
     const tokenURL = `${realmURL}/protocol/openid-connect/token`
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
 
     if (!code) {
       config.scope = config.scope || ['openid']

@@ -4,6 +4,7 @@ import { withQuery, parseURL, stringifyParsedURL } from 'ufo'
 import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthLinkedInConfig {
   /**
@@ -70,7 +71,7 @@ export function linkedinEventHandler({ config, onSuccess, onError }: OAuthConfig
       return onError(event, error)
     }
 
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
     if (!code) {
       config.scope = config.scope || []
       if (!config.scope.length) {

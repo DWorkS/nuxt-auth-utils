@@ -1,5 +1,5 @@
 import type { H3Event, SessionConfig } from 'h3'
-import { useSession, createError } from 'h3'
+import { useSession, createError, getRequestURL } from 'h3'
 import { defu } from 'defu'
 import { createHooks } from 'hookable'
 import { useRuntimeConfig } from '#imports'
@@ -89,4 +89,11 @@ function _useSession(event: H3Event) {
     sessionConfig = defu({ password: process.env.NUXT_SESSION_PASSWORD }, useRuntimeConfig(event).session)
   }
   return useSession<UserSession>(event, sessionConfig)
+}
+
+export function getProtocolRequestURL(event: H3Event) {
+  const protocol = process.env.NODE_ENV === 'development' ? 'http:' : 'https:'
+  const url = getRequestURL(event, { xForwardedProto: true })
+  url.protocol = protocol.replace('http', protocol)
+  return url
 }

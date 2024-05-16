@@ -11,6 +11,7 @@ import { withQuery } from 'ufo'
 import { defu } from 'defu'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
+import { getProtocolRequestURL } from '../../utils/session'
 
 export interface OAuthFacebookConfig {
   /**
@@ -91,7 +92,7 @@ export function facebookEventHandler({
       return onError(event, error)
     }
 
-    const redirectUrl = getRequestURL(event).href
+    const redirectUrl = getProtocolRequestURL(event).href
 
     if (!query.code) {
       config.scope = config.scope || []

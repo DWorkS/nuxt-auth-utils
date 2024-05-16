@@ -15,7 +15,7 @@ export function useUserSession(): UserSessionComposable {
 }
 
 async function fetch() {
-  useSessionState().value = await useRequestFetch()('/api/_auth/session', {
+  useSessionState().value = await useRequestFetch()('/server/_auth/session', {
     headers: {
       Accept: 'text/json',
     },
@@ -24,6 +24,6 @@ async function fetch() {
 }
 
 async function clear() {
-  await $fetch('/api/_auth/session', { method: 'DELETE' })
+  await $fetch('/server/_auth/session', { method: 'DELETE' })
   useSessionState().value = {}
 }

@@ -50,12 +50,12 @@ export default defineNuxtModule<ModuleOptions>({
     // addServerImportsDir(resolver.resolve('./runtime/server/utils'))
     addServerHandler({
       handler: resolver.resolve('./runtime/server/api/session.delete'),
-      route: '/api/_auth/session',
+      route: '/server/_auth/session',
       method: 'delete',
     })
     addServerHandler({
       handler: resolver.resolve('./runtime/server/api/session.get'),
-      route: '/api/_auth/session',
+      route: '/server/_auth/session',
       method: 'get',
     })
 

@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.26
+
+[compare changes](https://github.com/Atinux/nuxt-auth-utils/compare/v0.0.25...v0.0.26)
+
+### 🏡 Chore
+
+- **release:** V0.0.25 ([7fe6f84](https://github.com/Atinux/nuxt-auth-utils/commit/7fe6f84))
+
+### ❤️ Contributors
+
+- Sébastien Chopin ([@Atinux](http://github.com/Atinux))
+
 ## v0.0.25
 
 [compare changes](https://github.com/Atinux/nuxt-auth-utils/compare/v0.0.24...v0.0.25)

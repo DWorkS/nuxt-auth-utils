@@ -3,15 +3,14 @@ import {
   eventHandler,
   createError,
   getQuery,
-  getRequestURL,
   sendRedirect,
 } from 'h3'
 import { withQuery, parsePath } from 'ufo'
 import { ofetch } from 'ofetch'
 import { defu } from 'defu'
+import { getProtocolRequestURL } from '../../utils/session'
 import { useRuntimeConfig } from '#imports'
 import type { OAuthConfig } from '#auth-utils'
-import { getProtocolRequestURL } from '../utils/session'
 
 export interface OAuthGoogleConfig {
   /**

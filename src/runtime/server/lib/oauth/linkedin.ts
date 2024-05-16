@@ -1,10 +1,10 @@
 import type { H3Event, H3Error } from 'h3'
-import { eventHandler, createError, getQuery, getRequestURL, sendRedirect } from 'h3'
+import { eventHandler, createError, getQuery, sendRedirect } from 'h3'
 import { withQuery, parseURL, stringifyParsedURL } from 'ufo'
 import { ofetch } from 'ofetch'
 import { defu } from 'defu'
-import { useRuntimeConfig } from '#imports'
 import { getProtocolRequestURL } from '../../utils/session'
+import { useRuntimeConfig } from '#imports'
 
 export interface OAuthLinkedInConfig {
   /**

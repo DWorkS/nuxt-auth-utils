@@ -1,7 +1,6 @@
 import type { H3Event } from 'h3'
 import { eventHandler, createError, getQuery, sendRedirect } from 'h3'
 import { withQuery, parsePath } from 'ufo'
-import { ofetch } from 'ofetch'
 import { defu } from 'defu'
 import { getProtocolRequestURL } from '../../utils/session'
 import { useRuntimeConfig } from '#imports'
@@ -103,7 +102,7 @@ export function auth0EventHandler({ config, onSuccess, onError }: OAuthConfig<OA
 
     // TODO: improve typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tokens: any = await ofetch(
+    const tokens: any = await $fetch(
       tokenURL as string,
       {
         method: 'POST',
@@ -136,7 +135,7 @@ export function auth0EventHandler({ config, onSuccess, onError }: OAuthConfig<OA
 
     // TODO: improve typing
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user: any = await ofetch(`https://${config.domain}/userinfo`, {
+    const user: any = await $fetch(`https://${config.domain}/userinfo`, {
       headers: {
         Authorization: `${tokenType} ${accessToken}`,
       },

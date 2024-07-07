@@ -1,5 +1,5 @@
 import { writeFile, readFile } from 'node:fs/promises'
-import { defineNuxtModule, addPlugin, createResolver, addImportsDir, addServerHandler, addServerPlugin } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, createResolver, addImportsDir, addServerHandler, addServerPlugin, addServerImportsDir, addComponentsDir } from '@nuxt/kit'
 import { join } from 'pathe'
 import { defu } from 'defu'
 import { randomUUID } from 'uncrypto'
@@ -20,34 +20,13 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.alias['#auth-utils'] = resolver.resolve('./runtime/types/index')
 
     // App
-    addImportsDir(resolver.resolve('./runtime/composables'))
-    addPlugin(resolver.resolve('./runtime/plugins/session.server'))
+    addComponentsDir({ path: resolver.resolve('./runtime/app/components') })
+    addImportsDir(resolver.resolve('./runtime/app/composables'))
+    addPlugin(resolver.resolve('./runtime/app/plugins/session.server'))
+    addPlugin(resolver.resolve('./runtime/app/plugins/session.client'))
     // Server
-    if (nuxt.options.nitro.imports !== false) {
-      // TODO: address https://github.com/Atinux/nuxt-auth-utils/issues/1 upstream in unimport
-      nuxt.options.nitro.imports = defu(nuxt.options.nitro.imports, {
-        presets: [
-          {
-            from: resolver.resolve('./runtime/server/utils/oauth'),
-            imports: ['oauth'],
-          },
-          {
-            from: resolver.resolve('./runtime/server/utils/session'),
-            imports: [
-              'sessionHooks',
-              'getUserSession',
-              'setUserSession',
-              'replaceUserSession',
-              'clearUserSession',
-              'requireUserSession',
-            ],
-          },
-        ],
-      })
-    }
     addServerPlugin(resolver.resolve('./runtime/server/plugins/oauth'))
-    // Waiting for https://github.com/nuxt/nuxt/pull/24000/files
-    // addServerImportsDir(resolver.resolve('./runtime/server/utils'))
+    addServerImportsDir(resolver.resolve('./runtime/server/utils'))
     addServerHandler({
       handler: resolver.resolve('./runtime/server/api/session.delete'),
       route: '/server/_auth/session',
@@ -87,18 +66,8 @@ export default defineNuxtModule<ModuleOptions>({
       clientId: '',
       clientSecret: '',
     })
-    // Spotify OAuth
-    runtimeConfig.oauth.spotify = defu(runtimeConfig.oauth.spotify, {
-      clientId: '',
-      clientSecret: '',
-    })
     // Google OAuth
     runtimeConfig.oauth.google = defu(runtimeConfig.oauth.google, {
-      clientId: '',
-      clientSecret: '',
-    })
-    // Twitch OAuth
-    runtimeConfig.oauth.twitch = defu(runtimeConfig.oauth.twitch, {
       clientId: '',
       clientSecret: '',
     })
@@ -119,34 +88,10 @@ export default defineNuxtModule<ModuleOptions>({
       tokenURL: '',
       userURL: '',
     })
-    // Discord OAuth
-    runtimeConfig.oauth.discord = defu(runtimeConfig.oauth.discord, {
-      clientId: '',
-      clientSecret: '',
-    })
-    // Battle.net OAuth
-    runtimeConfig.oauth.battledotnet = defu(runtimeConfig.oauth.battledotnet, {
-      clientId: '',
-      clientSecret: '',
-    })
-    // Keycloak OAuth
-    runtimeConfig.oauth.keycloak = defu(runtimeConfig.oauth.keycloak, {
-      clientId: '',
-      clientSecret: '',
-      serverUrl: '',
-      realm: '',
-    })
     // LinkedIn OAuth
     runtimeConfig.oauth.linkedin = defu(runtimeConfig.oauth.linkedin, {
       clientId: '',
       clientSecret: '',
-    })
-    // Cognito OAuth
-    runtimeConfig.oauth.cognito = defu(runtimeConfig.oauth.cognito, {
-      clientId: '',
-      clientSecret: '',
-      region: '',
-      userPoolId: '',
     })
     // Facebook OAuth
     runtimeConfig.oauth.facebook = defu(runtimeConfig.oauth.facebook, {

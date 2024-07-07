@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.0
+
+[compare changes](https://github.com/DWorkS/nuxt-auth-utils/compare/v0.0.26...v0.1.0)
+
+### 🚀 Enhancements
+
+- ⚠️  Support hybrid rendering ([f71a363](https://github.com/DWorkS/nuxt-auth-utils/commit/f71a363))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Support hybrid rendering ([f71a363](https://github.com/DWorkS/nuxt-auth-utils/commit/f71a363))
+
+### ❤️ Contributors
+
+- HaKr <heart.break.kid.b4u@gmail.com>
+
 ## v0.0.26
 
 [compare changes](https://github.com/Atinux/nuxt-auth-utils/compare/v0.0.25...v0.0.26)
